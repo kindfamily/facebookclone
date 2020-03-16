@@ -136,6 +136,6 @@ dmypy.json
 
 # django
 /media
-/kindfamily
+/kindfamily/
 
 
