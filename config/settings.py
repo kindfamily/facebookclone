@@ -20,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(=iid_*unj!-3xzfm=6bz_0jttx=6dc=wb0nf*%^_w@0xx5h-e'
+SECRET_KEY = 'ha-==@h7mov*3wm$#2=rb3fm!ors8$ij@(dbv+1lv6=a$ot!v5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'accounts',
+    'post'
 ]
 
 MIDDLEWARE = [
@@ -124,8 +125,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-SITE_ID = 1
-
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'config', 'static'),
 ]
@@ -135,13 +134,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+SITE_ID = 1
+
 LOGIN_REDIRECT_URL = '/'
-
-
-
-
-
-
 
 
 
