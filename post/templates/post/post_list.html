@@ -64,9 +64,76 @@
                     </form>        
                 </div>
             </article>
-            <div class="contents_wrapper"></div>
-            
-            
+            <div class="contents_wrapper">
+                {% for post in posts %}
+                    <article class="contents">
+                        <header>
+                            <div class="profile_container">
+                                <div class="profile_img"><img src="{{ post.author.profile.picture.url }}" alt=""></div>
+                                <div>
+                                    <div class="name">{{ post.author.profile.nickname }}</div>
+                                    <div class="time">{{ post.updated_at|timesince }}</div>
+                                </div>
+                                <div class="more" data-name="more">
+                                    <span class="icon--more"></span>
+                                    <ul class="hidden_menu"></ul>
+                                </div>
+                            </div>
+                        </header>
+                        <div class="main_article">
+                            {{ post.content }}
+                        </div>
+                        <div class="img_section"><img src="{{ post.photo.url }}" alt=""></div>
+                        <div class="ajax_field">
+                            <div class="like">좋아요<span class="like_count" id="like-count-{{ post.id }}">1</span>개</div>
+                            <div class="comment">댓글<span class="comment_count" id="comment-count-{{ post.id }}">1</span>개</div>
+                        </div>
+                        <div class="btn_container">
+                            <div class="like-btn active" name="{{ post.id }}" data-name="heartbeat"><span class="icon icon--like-line"></span>좋아요</div>
+                            <div class="comment-btn"><span class="icon icon--cooment-line"></span>댓글</div>
+                        </div>
+                        <div class="comment_container">
+                            <div class="comment" id="comment-list-ajax-post{{ post.id }}">
+                                <div class="comment-detail" id="comment{{ comment.id }}">
+                                    <div class="id">
+                                        <div class="profile_img"><img src="{% static 'imgs/noun_User.png' %}" alt=""></div>
+                                        <div class="text_field">안녕하세요</div>
+                                        <div class="time">3시간전</div>
+                                        <input type="button" class="delete" data-name="comment_delete" value="X" name="{{ comment.id }}">                         
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="comment_input" id="add-comment-post{{post.id}}">
+                            {% if user.is_authenticated %}
+                                <div class="profile_img"><img src="{{ user_profile.picture.url }}" alt=""></div>
+                                <div class="input_container">
+                                    {{ comment_form }}
+                                    <button class="send">
+                                        <span class="icon--send" name="{{ post.id }}" data-name="comment"></span>
+                                      
+                                    </button>
+                                </div>
+                            
+                            {% else %}
+                              <div class="profile_img"><img src="{% static 'imgs/noun_User.png' %}" alt=""></div>
+                                <div class="input_container">
+                                    {{ comment_form }}
+                                    <button class="send">
+                                        <span class="icon--send" name="{{ post.id }}" data-name="comment" onclick="alert('댓글을 작성하려면 로그인이 필요합니다')"></span>
+                                      
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </article>
+                {% endfor %}
+                
+                <div id="post_list_ajax"></div>
+                <input type="hidden" id="page" value="2">
+                
+                
+            </div>
         </section>
         <div class="right_box">
             <header class="title">내 프로필</header>
