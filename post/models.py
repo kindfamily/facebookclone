@@ -27,9 +27,35 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    like_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                           blank=True,
+                                           related_name='like_post_set',
+                                           through='Like') 
+    bookmark_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                           blank=True,
+                                           related_name='bookmark_post_set',
+                                           through='Bookmark') 
+    
+    class Meta:
+        ordering = ['-created_at']
+    
+    
+    @property
+    def like_count(self):
+        return self.like_user_set.count()
+    
+    @property
+    def bookmark_count(self):
+        return self.bookmark_user_set.count()
+    
+    
     def __str__(self):
         return self.content
     
+    
+    
+    
+
 class Like(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
