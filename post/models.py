@@ -39,7 +39,6 @@ class Post(models.Model):
     class Meta:
         ordering = ['-created_at']
     
-    
     @property
     def like_count(self):
         return self.like_user_set.count()
