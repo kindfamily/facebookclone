@@ -85,7 +85,7 @@
                         </div>
                         <div class="img_section"><img src="{{ post.photo.url }}" alt=""></div>
                         <div class="ajax_field">
-                            <div class="like">좋아요<span class="like_count" id="like-count-{{ post.id }}">1</span>개</div>
+                            <div class="like">좋아요<span class="like_count" id="like-count-{{ post.id }}">{{ post.like_count }}</span>개</div>
                             <div class="comment">댓글<span class="comment_count" id="comment-count-{{ post.id }}">1</span>개</div>
                         </div>
                         <div class="btn_container">
@@ -135,6 +135,9 @@
                 
             </div>
         </section>
+        
+        
+        
         <div class="right_box">
             <header class="title">내 프로필</header>
             
@@ -171,9 +174,7 @@
     </ul>
 </div>
 
-
-
-
+{% include "post/script_ajax.html" %}
 
 
 
