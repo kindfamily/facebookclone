@@ -11,6 +11,8 @@ import json
 
 
 
+
+
 def post_list(request):
     post_list = Post.objects.all()
     

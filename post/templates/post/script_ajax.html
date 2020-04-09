@@ -1,51 +1,60 @@
 <script type="text/javascript">
 (function(){
     const delegation = document.querySelector('#contents_container');
-    const textField = document.querySelector('#text_field')
+    const textField = document.querySelector('#text_field');
     
-    function delegationFunc(e){
+    
+    function delegationFunc(e) {
         let elem = e.target;
         console.log(elem);
-    
+        
         while (!elem.getAttribute('data-name')){
             elem = elem.parentNode;
             
             if (elem.nodeName === 'BODY'){
+                
                 elem = null;
                 return;
             }
-            
-            if (elem.matches('[data-name="heartbeat"]')){
-                console.log('하트!');
-                
-                const pk = elem.getAttribute('name');
-                console.log(pk);
-                
-                $.ajax({
-                    type: "POST",
-                    url: "{% url 'post:post_like' %}",
-                    data: {'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
-                    dataType: "json",
-                    success: function (response){
-                        const likeCount = document.querySelector('#like-count-'+pk);
-                        likeCount.innerHTML = response.like_count
-                        
-                    },
-                    error: function (request, status, error){
-                        alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                        
-                    },
-                    
-                    
-                });
-                
-                
-            }
-            
-            
         }
+        
+        if (elem.matches('[data-name="heartbeat"]')){
+            console.log('하트!');
+            
+            const pk = elem.getAttribute('name');
+            console.log(pk);
+            
+            $.ajax({
+                type: "POST",
+                url: "{% url 'post:post_like' %}",
+                data: {'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                dataType: "json",
+                success: function (response){
+                    
+                    const likeCount = document.querySelector('#like-count-'+pk);
+                    likeCount.innerHTML = response.like_count;
+                    
+                    
+                },
+                error: function (request, status, error){
+                    
+                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    
+                }
+            });
+        }
+        
+        
+        
+        
         elem.classList.toggle('active');
     }
+    
+    
+    
+    
+    
+    
     
     
     delegation.addEventListener('click', delegationFunc);
