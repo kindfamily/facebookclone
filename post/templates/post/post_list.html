@@ -76,7 +76,22 @@
                                 </div>
                                 <div class="more" data-name="more">
                                     <span class="icon--more"></span>
-                                    <ul class="hidden_menu"></ul>
+                                    <ul class="hidden_menu">
+                                        {% if user in post.bookmark_user_set.all %}
+                                        
+                                        <li class="bookmark" data-name="bookmark" name="{{ post.id }}">저장됨</li>
+                                        
+                                        {% else %}
+                                        
+                                        <li class="bookmark" data-name="bookmark" name="{{ post.id }}">저장하기</li>
+                                        
+                                        {% endif %}
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    </ul>
                                 </div>
                             </div>
                         </header>

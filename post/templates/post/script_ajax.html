@@ -44,6 +44,42 @@
             });
         }
         
+        if (elem.matches('[data-name="bookmark"]')){
+            console.log('북마크');
+            
+            const pk = elem.getAttribute('name');
+            console.log(pk);
+            
+            $.ajax({
+                type: "POST",
+                url: "{% url 'post:post_bookmark' %}",
+                data: {'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}' },
+                dataType: "json",
+                success: function (response){
+                    let btn_bookmark_text = "";
+                    
+                    if(response.is_bookmarked === 'N'){
+                        btn_bookmark_text = "저장하기";
+                    } else if (response.is_bookmarked === 'Y') {
+                        btn_bookmark_text = "저장됨";
+                    }
+                    
+                    const bookmark = document.querySelector('.bookmark').innerHTML = btn_bookmark_text;
+                    
+                },
+                error: function (reqeust, status, error){
+                    
+                    alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                    
+                }
+            })
+            
+        }
+       
+        
+        
+        
+        
         
         
         
