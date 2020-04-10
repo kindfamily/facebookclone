@@ -1,10 +1,5 @@
-p{
-    margin-bottom: 20px;
-}
 
-span{
-    display: block;
-}
+
 
 
 #container{
@@ -38,9 +33,15 @@ span{
     margin-right: 10px;
 }
 
+/* 장고 적용하면서 추가한 부분  */
+p{
+    margin-bottom: 20px;
+}
 
-
-
+span{
+    display: block;
+}
+/* 장고 적용하면서 추가한 부분 */
 
 #signup_section input[type="text"]{
     width: 250px;
@@ -64,8 +65,6 @@ span{
 }
 
 
-
-
 #signup_section label{
     display: inline-block;
     color: #fff;
@@ -80,7 +79,9 @@ span{
     margin-bottom: 50px;
     color: #fff;
 }
+
 #submitBtn{
+    
     border: none;
     font-size: 15px;
     color: #fff;
@@ -91,6 +92,9 @@ span{
     border-radius: 3px;
 }
 
+.submit_section{
+    text-align: center;
+}
 
 #submitBtn:hover{
     background: #2050a2;

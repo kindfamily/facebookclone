@@ -416,14 +416,12 @@ body {
     height: 16px;
 }
 
-
 .icon--main-logo {
     display: inline-block;
     background: url('../imgs/bg03.png') no-repeat 0 -33px;
     width: 24px;
     height: 24px;
 }
-
 
 .icon--news {
     display: inline-block;
