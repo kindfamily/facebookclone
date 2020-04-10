@@ -87,6 +87,16 @@
                                         
                                         {% endif %}
                                         
+                                        {% if post.author in my_friend_user_list %}
+                                        
+                                        {% elif post.author in my_friend_request_user_list %}
+                                        
+                                        <li>친구요청중</li>
+                                        
+                                        {% else %}
+                                    <li><button class="friend_request" data-name="friend_request" name="{{ post.author.profile.id }}">친구요청하기</button></li>
+                                        {% endif %}
+                                        
                                         
                                         
                                         
