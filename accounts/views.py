@@ -49,17 +49,17 @@ def logout(request):
 
 def create_friend_request(request):
     user_id = request.POST.get('pk', None)
-    
+    # 커런트유저 가져오기
     user = request.user
-    
+    # 타겟유저 가져오기
     target_user = get_object_or_404(get_user_model(), pk=user_id)
-    
+    # 프랜드리퀘스트, 만들기 > model에서 확인 shell 이용
     
     try:
         user.friend_requests.create(from_user=user, to_user=target_user)
         context = {'result': 'succes'}
-    except Exception as ex:
-        print('에러가 발생했습니다', ex) # ex는 발생한 에러의 이름을 받아오는 변수
+    except Exception as ex: # 에러 종류
+        print('에러가 발생 했습니다', ex) # ex는 발생한 에러의 이름을 받아오는 변수
         context = {
             'result': 'error',
         }
@@ -87,8 +87,8 @@ def accept_friend_request(request):
 
         # 채팅방을 만들고
         # room = Room.objects.create(room_name=room_name)
-        Friend.objects.create(user=from_user, current_user=to_user, room=room)
-        Friend.objects.create(user=to_user, current_user=from_user, room=room)
+        Friend.objects.create(user=from_user, current_user=to_user)
+        Friend.objects.create(user=to_user, current_user=from_user)
 
         # 현재 만들어진 친구요청을 삭제
         friend_request.delete()
