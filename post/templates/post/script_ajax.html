@@ -132,7 +132,28 @@
             
         }
         
-        
+        if (elem.matches('[data-name="comment_delete"]')){
+            console.log('삭제')
+            const pk = elem.getAttribute('name');
+            
+            $.ajax({
+                type: "POST",
+                url: "{% url 'post:comment_delete' %}",
+                data: {
+                    'pk': pk,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                },
+                dataType: "json",
+                success: function(response){
+                    console.log('성공')
+                    if(response.status){
+                        document.querySelector('#comment'+pk).remove();
+                        location.reload();
+                    }
+                }
+            })
+            
+        }
         
         
         
