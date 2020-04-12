@@ -97,6 +97,50 @@
                 },
             })
         }
+        
+        if (elem.matches('[data-name="comment"]')){
+            console.log('새댓글')
+            const pk = elem.getAttribute('name');
+            const content = document.querySelector('#add-comment-post'+pk+'>div>input[type=text]').value;
+            console.log(content);
+            
+            if(content.length > 140) {
+                alert("댓글은 최대 140자 입력 가능하빈다. 현재 글자수: "+ content.length);
+                return;
+            }
+            
+            if(content.length == 0) {
+                alert("글자를 입력해 주세요: "+ content.length);
+                return;
+            }
+            
+            $.ajax({
+                type: "POST",
+                url: "{% url 'post:comment_new' %}",
+                data: {
+                    'pk': pk,
+                    'content': content,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                },
+                dataType: "html",
+                success: function(data, textStatus, jqXHR){
+                    console.log("성공")
+                    document.querySelector("#comment-list-ajax-post"+pk).insertAdjacentHTML("afterbegin", data);
+                    location.reload();
+                }
+            })
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
         
         
