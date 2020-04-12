@@ -76,7 +76,28 @@
             
         }
        
-        
+        if (elem.matches('[data-name="friend_request"]')){
+            console.log("친구요청");
+            const user_id = elem.getAttribute('name');
+            console.log(user_id);
+            
+            $.ajax({
+                type: "POST",
+                url: "{% url 'accounts:create_friend_request' %}",
+                data: {
+                    'pk': user_id,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                },
+                dataType: "json",
+                success: function(response){
+                    console.log('성공');
+                    
+                    elem.innerHTML = "친구요청중";
+                    
+                },
+            })
+        }
+    
         
         
         
