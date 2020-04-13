@@ -10,9 +10,7 @@ from django.http import HttpResponse
 import json
 from django.contrib import messages
 from django.db.models import Count 
-
-
-
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 
 
@@ -30,6 +28,22 @@ def post_list(request, tag=None):
         return redirect('post:post_search', tag_clean)
     
     comment_form = CommentForm()
+    
+    paginator = Paginator(post_list, 3)
+    page_num = request.POST.get('page')
+    
+    try:
+        post_list = paginator.page(page_num)
+    except PageNotAnInteger:
+        post_list = paginator.page(1)
+    except EmptyPage:
+        post_list = paginator.page(paginator.num_pages)
+    
+    if request.is_ajax():
+        return render(request, 'post/post_list_ajax.html', {
+            'posts': post_list,
+            'comment_form': comment_form,
+        })
     
     if request.user.is_authenticated:
         username = request.user
