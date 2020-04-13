@@ -9,13 +9,27 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import json
 from django.contrib import messages
+from django.db.models import Count
 
 
 
 
 
 
-def post_list(request):
+def post_list(request, tag=None):
+    tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post')
+    
+    if tag:
+        post_list = Post.objects.filter(tag_set__name__iexact=tag)
+    else:
+        post_list = Post.objects.all()
+    
+    if request.method == 'POST':
+        tag = request.POST.get('tag')
+        tag_clean = ''.join(e for e in tag if e.isalnum())
+        return redirect('post:post_search', tag_clean)
+    
+    
     post_list = Post.objects.all()
     
     comment_form = CommentForm()
@@ -38,6 +52,8 @@ def post_list(request):
         
         
         return render(request, 'post/post_list.html', {
+            'tag': tag,
+            'tag_all': tag_all,
             'user_profile': user_profile,
             'posts': post_list,
             'comment_form': comment_form,
@@ -48,6 +64,8 @@ def post_list(request):
         })
     else:
         return render(request, 'post/post_list.html', {
+            'tag': tag,
+            'tag_all': tag_all,
             'posts': post_list,
             'comment_form': comment_form,
         })

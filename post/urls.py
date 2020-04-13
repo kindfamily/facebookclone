@@ -11,6 +11,9 @@ urlpatterns = [
     # path('delete/<int:pk>/', post_delete, name='post_delete'),
     
     
+    path('explore/tags/<tag>/', post_list, name='post_search'),
+    
+    
     
     
     path('like', post_like, name='post_like'),
