@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import get_user_model
 from .models import *
 from .forms import *
@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 
 from django.http import HttpResponse
 import json
+from django.contrib import messages
 
 
 
@@ -66,7 +67,9 @@ def post_new(request):
             return redirect('post:post_list')
     else:
         form = PostForm()
-    return redirect('post:post_list ')
+    return render(request, 'post/post_new.html', {
+        'form': form,
+    })
     
             
     

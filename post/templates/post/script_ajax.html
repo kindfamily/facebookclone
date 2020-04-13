@@ -156,8 +156,12 @@
         }
         
         
-        
-        
+        if(elem.matches('[data-name="add"]')){
+            console.log('글추가');
+            textField.style.height = '100px';
+            submit.disabled = false;
+            submit.parentNode.style.display = 'block';
+        }
         
         
         
