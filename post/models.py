@@ -27,6 +27,8 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    tag_set = models.ManyToManyField('Tag', blank=True)
+    
     like_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                            blank=True,
                                            related_name='like_post_set',
@@ -38,6 +40,18 @@ class Post(models.Model):
     
     class Meta:
         ordering = ['-created_at']
+        
+    def tag_save(self):
+        tags = re.findall(r'#(\w+)\b', self.content)
+        
+        if not tags:
+            return
+        
+        for t in tags:
+            tag, tag_created = Tag.objects.get_or_create(name=t)
+            self.tag_set.add(tag)
+    
+    
     
     @property
     def like_count(self):
@@ -51,7 +65,11 @@ class Post(models.Model):
     def __str__(self):
         return self.content
     
+class Tag(models.Model):
+    name = models.CharField(max_length=140, unique=True)
     
+    def __str__(self):
+        return self.name
     
     
 
