@@ -1,5 +1,6 @@
 {% extends 'layout.html' %}
 {% load static %}
+{% load post_extras %}
 
 {% block head %}
 
@@ -107,7 +108,7 @@
                             </div>
                         </header>
                         <div class="main_article">
-                            {{ post.content }}
+                            {{ post|add_link|safe|linebreaksbr }}
                         </div>
                         <div class="img_section"><img src="{{ post.photo.url }}" alt=""></div>
                         <div class="ajax_field">
