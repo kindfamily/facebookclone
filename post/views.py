@@ -33,15 +33,15 @@ def post_list(request, tag=None):
     page_num = request.POST.get('page')
     
     try:
-        post_list = paginator.page(page_num)
+        posts = paginator.page(page_num)
     except PageNotAnInteger:
-        post_list = paginator.page(1)
+        posts = paginator.page(1)
     except EmptyPage:
-        post_list = paginator.page(paginator.num_pages)
+        posts = paginator.page(paginator.num_pages)
     
     if request.is_ajax():
-        return render(request, 'post/post_list_ajax.html', {
-            'posts': post_list,
+        return render(reqeust, 'post/post_list_ajax.html', {
+            'posts': posts,
             'comment_form': comment_form,
         })
     
