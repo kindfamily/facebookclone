@@ -52,6 +52,46 @@ def post_list(request):
         })
 
 
+
+@login_required
+def post_new(request):
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            post.tag_save()
+            messages.info(request, '새 글이 등록되었습니다')
+            return redirect('post:post_list')
+    else:
+        form = PostForm()
+    return redirect('post:post_list ')
+    
+            
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 @login_required
 def comment_new(request):
     pk = request.POST.get('pk')
