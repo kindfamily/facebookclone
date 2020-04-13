@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 import json
 from django.contrib import messages
-from django.db.models import Count
+from django.db.models import Count 
 
 
 
@@ -28,9 +28,6 @@ def post_list(request, tag=None):
         tag = request.POST.get('tag')
         tag_clean = ''.join(e for e in tag if e.isalnum())
         return redirect('post:post_search', tag_clean)
-    
-    
-    post_list = Post.objects.all()
     
     comment_form = CommentForm()
     
