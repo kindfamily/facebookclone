@@ -1,17 +1,10 @@
 
 
 window.addEventListener('DOMContentLoaded',function () {
-
-
-
-    const createBox = document.querySelector('.create_box');
-    const textField = document.querySelector('#text_field');
     const fileInput  = document.querySelector( "#id_photo" );
     const submit  = document.querySelector( "#submitBtn" );
 
     // Show image
-
-
     let canvas = document.getElementById('imageCanvas');
     let ctx = canvas.getContext('2d');
 
@@ -42,9 +35,43 @@ window.addEventListener('DOMContentLoaded',function () {
         };
         reader.readAsDataURL(e.target.files[0]);
     }
+    
+    function handleNewPostSubmit(e) {
+        e.preventDefault();
+        
+        const form = document.getElementById('form_new_post');
+        const post_data = new FormData(form);
+        
+        $.ajax({
+            type: 'POST',
+            url: '/post/new',
+            data: post_data,
+            processData: false,
+            contentType: false,
+            success: function (response){
+                location.reload()
+            },
+            error: function (request, status, error) {
+                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+            }
+        })
+    }
+    
+    
 
 
 
     fileInput.addEventListener('change', handleImage, false);
+    submit.addEventListener('click', handleNewPostSubmit, false);
 
 });
+
+
+
+
+
+
+
+
+
+
