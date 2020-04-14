@@ -3,6 +3,7 @@ from django.conf import settings
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 import re
+from chat.models import *
 
 
 def user_path(instance, filename):
@@ -39,7 +40,7 @@ class Profile(models.Model):
 class Friend(models.Model):
     # 상대방
     user = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, on_delete=models.CASCADE)
-    # room = models.ForeignKey(Room, blank=True, on_delete=models.SET_NULL, null=True)
+    room = models.ForeignKey(Room, blank=True, on_delete=models.SET_NULL, null=True)
     
     # 현재 로그인한 나
     current_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='friends', blank=True, on_delete=models.CASCADE)

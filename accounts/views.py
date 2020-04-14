@@ -7,6 +7,7 @@ from .forms import SignupForm, LoginForm
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse
 import json
+from chat.models import *
 
 
 # Create your views here.
@@ -83,10 +84,10 @@ def accept_friend_request(request):
 
     try:
         # 친구관계 생성
-        # room_name= "{},{}".format(from_user.username, to_user.username)
+        room_name= "{},{}".format(from_user.username, to_user.username)
 
         # 채팅방을 만들고
-        # room = Room.objects.create(room_name=room_name)
+        room = Room.objects.create(room_name=room_name)
         Friend.objects.create(user=from_user, current_user=to_user)
         Friend.objects.create(user=to_user, current_user=from_user)
 
