@@ -9,7 +9,9 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('post/', include('post.urls', namespace='post')),
     path('', lambda r: redirect('post:post_list'), name='root'),
-    path('bookmark_friends/', include('bookmark_friends.urls'))
+    path('bookmark_friends/', include('bookmark_friends.urls')),
+    
+    path('chat/', include('chat.urls'))
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
